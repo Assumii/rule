@@ -64,35 +64,35 @@ dns:
 # 如果相应分组没有筛选到对应的国家，请根据自己节点名字调整筛选关键字。
 # 没有再使用锚点和icon图标，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
 proxy-groups:
-  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(REJECT)).)*$"}
-  - {name: 🚀 默认代理, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 📹 YouTube, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 🍀 Google, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 🤖 ChatGPT, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 🐬 OneDrive, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 🪟 Microsoft, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 🎵 TikTok, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 📲 Telegram, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 🎥 NETFLIX, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 💶 PayPal, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
-  - {name: 🐟 漏网之鱼, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
+  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(DIRECT)).)*$"}
+  - {name: 🚀 默认代理, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 📹 YouTube, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 🍀 Google, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 🤖 ChatGPT, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 🐬 OneDrive, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 🪟 Microsoft, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 🎵 TikTok, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 📲 Telegram, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 🎥 NETFLIX, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 💶 PayPal, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
   - {name: 🌐 全部节点, type: select, include-all: true}
 
 # 规则匹配
 rules:
   - DOMAIN-KEYWORD,imgbox,♻️ 自动选择
-  - DOMAIN-KEYWORD,bilibili,REJECT
+  - DOMAIN-KEYWORD,bilibili,DIRECT
   - DOMAIN-KEYWORD,gofile,♻️ 自动选择
   - DOMAIN-SUFFIX,exhentai.org,🇺🇸 美国节点
   - DOMAIN-SUFFIX,asmr.one,🇺🇸 美国节点
   - DOMAIN-SUFFIX,dlsite.com,🇯🇵 日本节点
   - RULE-SET,jp,🇯🇵 日本节点
   - RULE-SET,youtube,📹 YouTube
-  - RULE-SET,private_ip,REJECT,no-resolve
-  - RULE-SET,private_domain,REJECT
+  - RULE-SET,private_ip,DIRECT,no-resolve
+  - RULE-SET,private_domain,DIRECT
   - RULE-SET,steam,🇺🇸 美国节点
-  - RULE-SET,steam_cn,REJECT
+  - RULE-SET,steam_cn,DIRECT
   - DOMAIN-SUFFIX,qichiyu.com,🚀 默认代理
   - RULE-SET,ai,🤖 ChatGPT
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
@@ -100,18 +100,18 @@ rules:
   - RULE-SET,google_domain,🍀 Google
   - RULE-SET,onedrive_domain,🐬 OneDrive
   - RULE-SET,microsoft_domain,🪟 Microsoft
-  - RULE-SET,apple_domain,REJECT
+  - RULE-SET,apple_domain,DIRECT
   - RULE-SET,tiktok_domain,🎵 TikTok
   - RULE-SET,telegram_domain,📲 Telegram
   - RULE-SET,netflix_domain,🎥 NETFLIX
   - RULE-SET,paypal_domain,💶 PayPal
-  - RULE-SET,apple_ip,REJECT
+  - RULE-SET,apple_ip,DIRECT
   - RULE-SET,google_ip,🍀 Google
   - RULE-SET,netflix_ip,🎥 NETFLIX
   - RULE-SET,telegram_ip,📲 Telegram
   - RULE-SET,geolocation-!cn,🚀 默认代理
-  - RULE-SET,cn_domain,REJECT
-  - RULE-SET,cn_ip,REJECT
+  - RULE-SET,cn_domain,DIRECT
+  - RULE-SET,cn_ip,DIRECT
   - MATCH,🐟 漏网之鱼
 
 # 规则集
