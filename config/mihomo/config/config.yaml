@@ -65,7 +65,7 @@ dns:
 # 没有再使用锚点和icon图标，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
 proxy-groups:
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(DIRECT)).)*$"}
-  - {name: 🚀 默认代理, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
+  - {name: 🚀 默认代理, type: select, proxies: [ 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
   - {name: 📹 YouTube, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
   - {name: 🍀 Google, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
   - {name: 🤖 ChatGPT, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
@@ -124,6 +124,7 @@ rule-providers:
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
   jp: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo-lite/geoip/jp.mrs" }
   ai: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
+  youtube: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs" }
   steam: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.mrs" }
   steam_cn: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam@cn.mrs" }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
