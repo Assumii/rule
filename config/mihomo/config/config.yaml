@@ -89,7 +89,7 @@ rules:
   - RULE-SET,jp,🇯🇵 日本节点
   - RULE-SET,youtube,📹 YouTube
   - RULE-SET,private_ip,DIRECT,no-resolve
-  - RULE-SET,private_domn,DIRECT
+  - RULE-SET,private_domain,DIRECT
   - RULE-SET,steam,🇺🇸 美国节点
   - RULE-SET,steam_cn,DIRECT
   - DOMAIN-SUFFIX,qichiyu.com,🚀 默认代理
