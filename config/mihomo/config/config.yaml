@@ -64,7 +64,7 @@ dns:
 # 如果相应分组没有筛选到对应的国家，请根据自己节点名字调整筛选关键字。
 # 没有再使用锚点和icon图标，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
 proxy-groups:
-  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
+  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(REJECT)).)*$"}
   - {name: 🚀 默认代理, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
   - {name: 📹 YouTube, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
   - {name: 🍀 Google, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, REJECT]}
