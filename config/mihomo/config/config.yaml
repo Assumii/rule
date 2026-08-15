@@ -64,19 +64,19 @@ dns:
 # 如果相应分组没有筛选到对应的国家，请根据自己节点名字调整筛选关键字。
 # 没有再使用锚点和icon图标，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
 proxy-groups:
-  - {name: 🚀 默认代理, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 📹 YouTube, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 🍀 Google, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 🤖 ChatGPT, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 🐬 OneDrive, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 🪟 Microsoft, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 🎵 TikTok, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 📲 Telegram, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 🎥 NETFLIX, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 💶 PayPal, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 🐟 漏网之鱼, type: select, proxies: [ ♻️ 自动选择, 🇺🇲 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
-  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|韩|新|日)).)*$"}
+  - {name: 🚀 默认代理, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 📹 YouTube, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 🍀 Google, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 🤖 ChatGPT, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 🐬 OneDrive, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 🪟 Microsoft, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 🎵 TikTok, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 📲 Telegram, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 🎥 NETFLIX, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 💶 PayPal, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, 直连]}
+  - {name: 🇺🇸 美国节点, type: select, include-all: true, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|韩|新|日)).)*$"}
   - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
   - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$"}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
@@ -87,8 +87,8 @@ rules:
   - DOMAIN-KEYWORD,imgbox,自动选择
   - DOMAIN-KEYWORD,bilibili,直连
   - DOMAIN-KEYWORD,gofile,自动选择
-  - DOMAIN-SUFFIX,exhentai.org,🇺🇲 美国节点
-  - DOMAIN-SUFFIX,asmr.one,🇺🇲 美国节点
+  - DOMAIN-SUFFIX,exhentai.org,🇺🇸 美国节点
+  - DOMAIN-SUFFIX,asmr.one,🇺🇸 美国节点
   - DOMAIN-SUFFIX,dlsite.com,🇯🇵 日本节点
   - RULE-SET,jp,🇯🇵 日本节点
   - RULE-SET,youtube,📹 YouTube
