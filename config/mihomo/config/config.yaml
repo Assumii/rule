@@ -65,19 +65,18 @@ dns:
 # 没有再使用锚点和icon图标，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
 proxy-groups:
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(DIRECT)).)*$"}
-  - {name: 🚀 默认代理, type: select, proxies: [ 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 📹 YouTube, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 🍀 Google, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 🤖 AI, type: select, proxies: [ 🇺🇸 美国节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 🐬 OneDrive, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 🪟 Microsoft, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 🎵 TikTok, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 📲 Telegram, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 🎥 NETFLIX, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 💶 PayPal, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 🐟 漏网之鱼, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🌐 全部节点, DIRECT]}
-  - {name: 🌐 全部节点, type: select, include-all: true}
+  - {name: 🚀 默认代理, type: select, proxies: [ 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 📹 YouTube, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 🍀 Google, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 🤖 AI, type: select, proxies: [ 🇺🇸 美国节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 🐬 OneDrive, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 🪟 Microsoft, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 🎵 TikTok, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 📲 Telegram, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 🎥 NETFLIX, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 💶 PayPal, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [ ♻️ 自动选择, 🇺🇸 美国节点, 🇭🇰 香港节点, 🇯🇵 日本节点, DIRECT]}
 
 # 规则匹配
 rules:
