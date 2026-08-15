@@ -91,7 +91,7 @@ rules:
   - RULE-SET,youtube,📹 YouTube
   - RULE-SET,private_ip,REJECT,no-resolve
   - RULE-SET,private_domain,REJECT
-  - RULE-SET,steam,Steam
+  - RULE-SET,steam,🇺🇸 美国节点
   - RULE-SET,steam_cn,REJECT
   - DOMAIN-SUFFIX,qichiyu.com,🚀 默认代理
   - RULE-SET,ai,🤖 ChatGPT
