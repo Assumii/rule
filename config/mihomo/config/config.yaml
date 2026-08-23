@@ -81,6 +81,8 @@ proxy-groups:
 
 # 规则匹配
 rules:
+  - DOMAIN-KEYWORD,twitter,♻️ 自动选择
+  - DOMAIN-SUFFIX,x.com,♻️ 自动选择
   - DOMAIN-KEYWORD,imgbox,♻️ 自动选择
   - DOMAIN-KEYWORD,bilibili,DIRECT
   - DOMAIN-KEYWORD,gofile,♻️ 自动选择
