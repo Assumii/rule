@@ -1,7 +1,6 @@
-# 全局配置 
 mixed-port: 7890
 allow-lan: true
-bind-address: "*"
+bind-address: '*'
 ipv6: false
 unified-delay: true
 tcp-concurrent: true
@@ -11,37 +10,38 @@ keep-alive-interval: 15
 profile:
   store-selected: true
   store-fake-ip: true
-
 external-controller: 0.0.0.0:9090
-secret: ""
+secret: ''
 external-ui: ui
-external-ui-url: "https://gh-proxy.com/https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
-
-# 嗅探
+external-ui-url: https://gh-proxy.com/https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip
 sniffer:
   enable: true
   sniff:
     HTTP:
-      ports: [80, 8080-8880]
+      ports:
+        - 80
+        - 8080-8880
       override-destination: true
     TLS:
-      ports: [443, 8443]
+      ports:
+        - 443
+        - 8443
     QUIC:
-      ports: [443, 8443]
+      ports:
+        - 443
+        - 8443
   skip-domain:
-    - "Mijia Cloud"
-    - "+.push.apple.com"
-
-# 入站
+    - Mijia Cloud
+    - +.push.apple.com
 tun:
   enable: true
   stack: mixed
-  dns-hijack: ["any:53", "tcp://any:53"]
+  dns-hijack:
+    - any:53
+    - tcp://any:53
   auto-route: true
   auto-redirect: true
   auto-detect-interface: true
-
-# DNS模块
 dns:
   enable: true
   cache-algorithm: arc
@@ -50,37 +50,220 @@ dns:
   fake-ip-range: 198.18.0.0/16
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
-    - "*"
-    - "+.lan"
-    - "+.local"
-    - "+.market.xiaomi.com"
+    - '*'
+    - +.lan
+    - +.local
+    - +.market.xiaomi.com
   default-nameserver:
     - 223.5.5.5
   nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
- 
-# 出站策略，根据自己情况调整每个策略里分组排序，增删都可以，比如把美国自动放到第一个，比如删除香港故转，注意别漏掉表情逗号等。
-# 如果相应分组没有筛选到对应的国家，请根据自己节点名字调整筛选关键字。
-# 没有再使用锚点和icon图标，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
 proxy-groups:
-  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(DIRECT)).)*$"}
-  - {name: 🚀 默认代理, type: select, proxies: [ __PROXY_NODES__]}
-  - {name: 📹 YouTube, type: select, proxies: [ 🇺🇸 美国节点, 🇯🇵 日本节点, DIRECT]}
-  - {name: 🍀 Google, type: select, proxies: [ __PROXY_NODES__]}
-  - {name: 🤖 AI, type: select, proxies: [ 🇺🇸 美国节点, 🇯🇵 日本节点, DIRECT]}
-  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [ ♻️ 自动选择, __PROXY_NODES__]}
-  - {name: 🐬 OneDrive, type: select, proxies: [ ♻️ 自动选择, __PROXY_NODES__]}
-  - {name: 🪟 Microsoft, type: select, proxies: [ ♻️ 自动选择, __PROXY_NODES__]}
-  - {name: 🎵 TikTok, type: select, proxies: [ ♻️ 自动选择, __PROXY_NODES__]}
-  - {name: 📲 Telegram, type: select, proxies: [ ♻️ 自动选择, __PROXY_NODES__]}
-  - {name: 🎥 NETFLIX, type: select, proxies: [ ♻️ 自动选择, __PROXY_NODES__]}
-  - {name: 💶 PayPal, type: select, proxies: [ ♻️ 自动选择, __PROXY_NODES__]}
-  - {name: 🛑 广告拦截, type: select, proxies: [ REJECT]}
-  - {name: 🐟 漏网之鱼, type: select, proxies: [ ♻️ 自动选择, __PROXY_NODES__]}
-
-# 规则匹配
+  - name: ♻️ 自动选择
+    type: url-test
+    include-all: true
+    include-all-proxies: true
+    include-all-providers: true
+    filter: ^((?!(DIRECT)).)*$
+    proxies:
+      - __PROXY_PROVIDERS__
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 20
+  - name: 🚀 默认代理
+    type: select
+    include-all-proxies: true
+    proxies:
+      - __PROXY_NODES__
+  - name: 📹 YouTube
+    type: select
+    proxies:
+      - 🇺🇸 美国节点
+      - 🇯🇵 日本节点
+  - name: 🍀 Google
+    type: select
+    include-all-proxies: true
+    proxies:
+      - __PROXY_NODES__
+  - name: 📲 Telegram
+    type: select
+    include-all-proxies: true
+    proxies:
+      - ♻️ 自动选择
+      - __PROXY_NODES__
+  - name: 🤖 AI
+    type: select
+    proxies:
+      - 🇺🇸 美国节点
+      - 🇯🇵 日本节点
+  - name: 👨🏿‍💻 GitHub
+    type: select
+    include-all-proxies: true
+    proxies:
+      - ♻️ 自动选择
+      - __PROXY_NODES__
+  - name: 🐬 OneDrive
+    type: select
+    include-all-proxies: true
+    proxies:
+      - ♻️ 自动选择
+      - __PROXY_NODES__
+  - name: 🪟 Microsoft
+    type: select
+    include-all-proxies: true
+    proxies:
+      - ♻️ 自动选择
+      - __PROXY_NODES__
+  - name: 🎵 TikTok
+    type: select
+    include-all-proxies: true
+    proxies:
+      - ♻️ 自动选择
+      - __PROXY_NODES__
+  - name: 🎥 NETFLIX
+    type: select
+    include-all-proxies: true
+    proxies:
+      - ♻️ 自动选择
+      - __PROXY_NODES__
+  - name: 💶 PayPal
+    type: select
+    include-all-proxies: true
+    proxies:
+      - ♻️ 自动选择
+      - __PROXY_NODES__
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: 🐟 漏网之鱼
+    type: select
+    include-all-proxies: true
+    proxies:
+      - ♻️ 自动选择
+      - __PROXY_NODES__
+  - name: 🇭🇰 香港节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇭🇰|港|\bHK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|hk|Hong Kong|HongKong|hongkong|HONG KONG|HONGKONG|深港|HKG|九龙|Kowloon|新界|沙田|荃湾|葵涌
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇺🇸 美国节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇺🇸|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|纽约|纽纽|亚特兰大|迈阿密|华盛顿|\bUS(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|United States|UnitedStates|UNITED STATES|USA|America|AMERICA|JFK|EWR|IAD|ATL|ORD|MIA|NYC|LAX|SFO|SEA|DFW|SJC
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇯🇵 日本节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇯🇵|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|(?<!尼|-)日|\bJP(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Japan|JAPAN|JPN|NRT|HND|KIX|TYO|OSA|关西|Kansai|KANSAI
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇸🇬 新加坡节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇸🇬|新加坡|坡|狮城|\bSG(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Singapore|SINGAPORE|SIN
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇼🇸 台湾节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇹🇼|🇼🇸|台|新北|彰化|\bTW(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Taiwan|TAIWAN|TWN|TPE|ROC
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇰🇷 韩国节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇰🇷|\bKR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Korea|KOREA|KOR|首尔|韩|韓|春川|Chuncheon|ICN
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇨🇦 加拿大节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇨🇦|加拿大|\bCA(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Canada|CANADA|CAN|渥太华|温哥华|卡尔加里|蒙特利尔|Montreal|YVR|YYZ|YUL
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇬🇧 英国节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇬🇧|英国|Britain|United Kingdom|UNITED KINGDOM|England|伦敦|曼彻斯特|Manchester|\bUK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|GBR|LHR|MAN
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇫🇷 法国节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇫🇷|法国|\bFR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|France|FRANCE|FRA|巴黎|马赛|Marseille|CDG|MRS
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇩🇪 德国节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇩🇪|德国|Germany|GERMANY|\bDE(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|DEU|柏林|法兰克福|慕尼黑|Munich|MUC
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇳🇱 荷兰节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇳🇱|荷兰|Netherlands|NETHERLANDS|\bNL(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|NLD|阿姆斯特丹|AMS
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🇹🇷 土耳其节点
+    type: url-test
+    include-all-proxies: true
+    filter: 🇹🇷|土耳其|Turkey|TURKEY|Türkiye|\bTR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|TUR|IST|ANK
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+  - name: 🌐 其他地区
+    type: url-test
+    include-all-proxies: true
+    filter: (^(?!.*(港|\bHK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|hk|Hong Kong|HongKong|hongkong|HONG KONG|HONGKONG|深港|HKG|🇭🇰|九龙|Kowloon|新界|沙田|荃湾|葵涌|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|纽约|纽纽|亚特兰大|迈阿密|华盛顿|\bUS(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|United States|UnitedStates|UNITED STATES|USA|America|AMERICA|JFK|EWR|IAD|ATL|ORD|MIA|NYC|LAX|SFO|SEA|DFW|SJC|🇺🇸|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|(?<!尼|-)日|\bJP(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Japan|JAPAN|JPN|NRT|HND|KIX|TYO|OSA|🇯🇵|关西|Kansai|KANSAI|新加坡|坡|狮城|\bSG(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Singapore|SINGAPORE|SIN|🇸🇬|台|新北|彰化|\bTW(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Taiwan|TAIWAN|TWN|TPE|ROC|🇹🇼|\bKR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Korea|KOREA|KOR|首尔|韩|韓|春川|Chuncheon|ICN|🇰🇷|加拿大|\bCA(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|Canada|CANADA|CAN|渥太华|温哥华|卡尔加里|蒙特利尔|Montreal|YVR|YYZ|YUL|🇨🇦|英国|Britain|United Kingdom|UNITED KINGDOM|England|伦敦|曼彻斯特|Manchester|\bUK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|GBR|LHR|MAN|🇬🇧|法国|\bFR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|France|FRANCE|FRA|巴黎|马赛|Marseille|CDG|MRS|🇫🇷|德国|Germany|GERMANY|\bDE(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|DEU|柏林|法兰克福|慕尼黑|Munich|MUC|🇩🇪|荷兰|Netherlands|NETHERLANDS|\bNL(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|NLD|阿姆斯特丹|AMS|🇳🇱|土耳其|Turkey|TURKEY|Türkiye|\bTR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2|})?)?\b|TUR|IST|ANK|🇹🇷)).*)
+    proxies:
+      - __PROXY_NODES__
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
 rules:
+  - DOMAIN-KEYWORD,cloudflare,🇺🇸 美国节点
   - DOMAIN-KEYWORD,twitter,♻️ 自动选择
   - DOMAIN-SUFFIX,x.com,♻️ 自动选择
   - DOMAIN-KEYWORD,imgbox,♻️ 自动选择
@@ -116,37 +299,176 @@ rules:
   - RULE-SET,cn_domain,DIRECT
   - RULE-SET,cn_ip,DIRECT
   - MATCH,🐟 漏网之鱼
-
-# 规则集
-## type：可选http/file/inline  behavior：可选domain/ipcidr/classical format：可选yaml/text/mrs
 rule-anchor:
-  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
-  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
-  class: &class {type: http, interval: 86400, behavior: classical, format: text}
-rule-providers: 
-  private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
-  jp: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo-lite/geoip/jp.mrs" }
-  ai: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
-  youtube: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs" }
-  steam: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.mrs" }
-  steam_cn: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam@cn.mrs" }
-  youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
-  category-ads-all: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs"}
-  google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
-  github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
-  telegram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
-  netflix_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
-  paypal_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
-  onedrive_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
-  microsoft_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
-  apple_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"}
-  speedtest_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
-  tiktok_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
-  geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
-  cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}  
-  private_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
-  cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
-  google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
-  telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
-  netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
-  apple_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
+  ip:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+  domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+  class:
+    type: http
+    interval: 86400
+    behavior: classical
+    format: text
+rule-providers:
+  private_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs
+  jp:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo-lite/geoip/jp.mrs
+  ai:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs
+  youtube:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs
+  steam:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.mrs
+  steam_cn:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam@cn.mrs
+  youtube_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs
+  category-ads-all:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs
+  google_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs
+  github_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs
+  telegram_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs
+  netflix_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs
+  paypal_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs
+  onedrive_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs
+  microsoft_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs
+  apple_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs
+  speedtest_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs
+  tiktok_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs
+  geolocation-!cn:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs
+  cn_domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
+  private_ip:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs
+  cn_ip:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs
+  google_ip:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs
+  telegram_ip:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs
+  netflix_ip:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs
+  apple_ip:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs
