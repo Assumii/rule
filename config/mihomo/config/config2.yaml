@@ -1,0 +1,194 @@
+######### 锚点起始
+
+# # 订阅模板
+# .provider_template: &p_base {type: http, interval: 3600, health-check: {enable: true, interval: 300, url: https://www.gstatic.com/generate_204 }, http-user-agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+
+# DNS 配置
+dns-anchor: &dns [system]
+
+# 规则锚点
+rule_anchor: {ip: &ip {type: http, interval: 86400, format: mrs, behavior: ipcidr}, domain: &domain {type: http, interval: 86400, format: mrs, behavior: domain}}
+  
+# 代理组
+proxy_anchor: &proxy {type: select, proxies: ["节点选择", "香港落地", "新加坡落地", "日本落地", "美国落地", "英国落地", "其它", "Cloudflare节点", "直连"]}
+
+######### 锚点结尾
+
+mode: Rule
+# 监听端口
+mixed-port: 7893
+authentication:
+  - Clash:<YOUR_PASSWORD>
+
+# 杂项
+allow-lan: true
+ipv6: true
+log-level: info
+unified-delay: true
+tcp-concurrent: true
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+# 面板
+secret: "<YOUR_SECRET>"
+external-controller: ':9090'
+
+# proxy-providers: 
+#   "SubStore": {url: "https://<YOUR_SUBSTORE_DOMAIN>/<TOKEN>/", <<: *p_base}
+
+dns:
+  #enhanced-mode: redir-host
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-range6: fc00::/18
+  fake-ip-filter: ["rule-set:fakeipfilter", "rule-set:cn", "rule-set:apple-cn", "rule-set:games-cn", "rule-set:geosite-private", "rule-set:microsoft-cn", "rule-set:category-pt", "rule-set:tracker", "+.priv.example.com"]
+  
+  enable: true
+  listen: '[::]:1053'
+  direct-nameserver: *dns
+  default-nameserver: *dns
+  proxy-server-nameserver: *dns
+  nameserver:
+    # ECS 指定为阿里云公共 IP 段（223.5.5.0/24），经海外 DoH 解析时可精准识别出国内目标并拿到最优 CDN，也可换成你自己宽带的 /24 段
+    - "https://dns.google/dns-query#节点选择&ecs=223.5.5.0/24&ecs-override=true"
+  fallback:
+    - "https://dns.google/dns-query#节点选择"
+    - "https://dns.cloudflare.com/dns-query#节点选择"
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+  nameserver-policy: {"rule-set:ads": rcode://success, "+.priv.example.com": *dns, "rule-set:cn": *dns, "rule-set:apple-cn": *dns, "rule-set:games-cn": *dns, "rule-set:geosite-private": *dns, "rule-set:microsoft-cn": *dns, "rule-set:category-pt": *dns, "rule-set:tracker": *dns}
+
+hosts:
+  'services.googleapis.cn': 'services.googleapis.com'
+
+proxies:
+  - name: "默认"
+    type: direct
+  - name: "拦截"
+    type: reject
+
+proxy-groups:
+  - {name: "节点选择", type: select, proxies: ["香港落地", "新加坡落地", "日本落地", "美国落地", "英国落地", "其它", "Cloudflare节点", "直连"], icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png"}
+
+  # 地区分组
+  - {name: "香港落地", proxies: [香港自动选择], include-all: true, filter: "^(?i)🇭🇰", type: select, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png"}
+  - {name: "香港自动选择", hidden: true, include-all: true, filter: "^(?i)🇭🇰", type: url-test, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png"}
+
+  - {name: "新加坡落地", proxies: [新加坡自动选择], include-all: true, filter: "^(?i)🇸🇬", type: select, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
+  - {name: "新加坡自动选择", hidden: true, include-all: true, filter: "^(?i)🇸🇬", type: url-test, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
+
+  - {name: "日本落地", proxies: [日本自动选择], include-all: true, filter: "^(?i)🇯🇵", type: select, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"}
+  - {name: "日本自动选择", hidden: true, include-all: true, filter: "^(?i)🇯🇵", type: url-test, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"}
+
+  - {name: "美国落地", proxies: [美国自动选择], include-all: true, filter: "^(?i)🇺🇸", type: select, icon: "https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/United_States.png"}
+  - {name: "美国自动选择", hidden: true, include-all: true, filter: "^(?i)🇺🇸", type: url-test, icon: "https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/United_States.png"}
+  
+  - {name: "英国落地", proxies: [英国自动选择], include-all: true, filter: "^(?i)🇬🇧", type: select, icon: "https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/United_Kingdom.png"}
+  - {name: "英国自动选择", hidden: true, include-all: true, filter: "^(?i)🇬🇧", type: url-test, icon: "https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/United_Kingdom.png"}
+
+  - {name: "其它", type: select, include-all: true, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|🇬🇧|☁️|ts-private|默认|拦截)).*", icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png"}
+  - {name: "Cloudflare节点", include-all: true, filter: "^(?i)☁️", type: url-test, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"}
+
+  # 应用分组
+  - {name: "Ai", default-selected: "新加坡落地", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AI.png"}  
+  - {name: "加密货币", default-selected: "其它", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cryptocurrency_1.png"}
+  - {name: "电报信息", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png"} 
+  - {name: "油管视频", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png"} 
+  - {name: "奈飞视频", default-selected: "新加坡落地", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png"} 
+  - {name: "Google", default-selected: "新加坡落地", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google_Search.png"} 
+  - {name: "微软服务", default-selected: "直连", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png"}
+  
+  #特殊规则
+  - {name: "国内", default-selected: "直连", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png"}
+  - {name: "漏网之鱼", <<: *proxy, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"} 
+  - {name: "净化", type: select, proxies: ["拦截"], hidden: true, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Filter.png"}
+  - {name: "直连", type: select, proxies: ["默认"], hidden: true, icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png"}
+
+rules:
+  # 阻断客户端 DoH / DoT，迫使其降级回本地 DNS 并分配 Fake-IP
+  - DOMAIN,use-application-dns.net,REJECT
+  - DST-PORT,853,REJECT
+  - GEOSITE,category-doh,REJECT
+
+  - RULE-SET,private,直连,no-resolve
+  - RULE-SET,geosite-private,直连
+  - RULE-SET,category-pt,直连
+  - RULE-SET,tracker,直连
+  - RULE-SET,ads,净化
+
+  - RULE-SET,ai,Ai
+  - RULE-SET,youtube,油管视频
+  - RULE-SET,netflix,奈飞视频
+  - RULE-SET,cryptocurrency,加密货币
+  - RULE-SET,telegram-domain,电报信息
+  - RULE-SET,google-domain,Google
+  
+  - RULE-SET,microsoft-cn,国内
+  - RULE-SET,microsoft,微软服务
+  - RULE-SET,apple-cn,国内
+  - RULE-SET,games-cn,国内
+
+  - RULE-SET,cn,国内
+
+  # IP集
+  - RULE-SET,netflix-ip,奈飞视频
+  - RULE-SET,telegram-ip,电报信息
+  - RULE-SET,google-ip,Google
+  - RULE-SET,cnip,国内
+
+  - MATCH,漏网之鱼
+
+rule-providers:
+  # 广告过滤规则
+  ads: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ads-all.mrs"}
+
+  # 平台规则
+  cryptocurrency: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-cryptocurrency.mrs"}
+  ai: {<<: *domain, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/ai.mrs"}
+  youtube: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs"}
+  netflix: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs"}
+  netflix-ip: {<<: *ip, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/netflix-ip.mrs"}
+  telegram-domain: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs"}
+  telegram-ip: {<<: *ip, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/telegram-ip.mrs"}
+  google-domain: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs"}
+  google-ip: {<<: *ip, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/google-ip.mrs"}
+
+  # 国内CDN与应用
+  apple-cn: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple-cn.mrs"}
+  microsoft: {<<: *domain, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/microsoft.mrs"}
+  microsoft-cn: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft@cn.mrs"}
+  games-cn: {<<: *domain, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/games-cn.mrs"}
+
+  # 国内网络、PT下载与私有地址规则
+  fakeipfilter: {<<: *domain, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/fakeip-filter.mrs"}
+  geosite-private: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs"}
+  private: {<<: *ip, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/private.mrs"}
+  cnip: {<<: *ip, url: "https://v4.gh-proxy.org/https://raw.githubusercontent.com/Cerarin/ruleset-builder/main/ruleset/cnip.mrs"}
+  cn: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs"}
+  category-pt: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-pt.mrs"}
+  tracker: {<<: *domain, url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tracker.mrs"}
+
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+
+ntp:
+  enable: true
+  write-to-system: true
+  server: time.apple.com
+  port: 123
+  interval: 30
