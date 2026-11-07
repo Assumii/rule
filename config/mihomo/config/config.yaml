@@ -268,9 +268,7 @@ rules:
   - DOMAIN-SUFFIX,x.com,♻️ 自动选择
   - DOMAIN-KEYWORD,imgbox,♻️ 自动选择
   - DOMAIN-KEYWORD,bilibili,DIRECT
-  - DOMAIN-WILDCARD,*pcdn*.biliapi.net,REJECT
-  - DOMAIN-SUFFIX,mcdn.bilivideo.cn,REJECT
-  - DOMAIN-SUFFIX,mcdn.bilivideo.com,REJECT
+  - RULE-SET,BLilibili-PCDN,REJECT
   - DOMAIN-SUFFIX,szbdyd.com,REJECT
   - DOMAIN-SUFFIX,mountaintoys.cn,REJECT
   - DOMAIN-KEYWORD,gofile,♻️ 自动选择
@@ -327,6 +325,12 @@ rule-providers:
     behavior: domain
     format: mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs
+  BLilibili-PCDN:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: yaml
+    url: https://raw.githubusercontent.com/Assumii/rule/refs/heads/main/config/mihomo/config/PCDN.yaml    
   jp:
     type: http
     interval: 86400
