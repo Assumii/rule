@@ -268,6 +268,11 @@ rules:
   - DOMAIN-SUFFIX,x.com,♻️ 自动选择
   - DOMAIN-KEYWORD,imgbox,♻️ 自动选择
   - DOMAIN-KEYWORD,bilibili,DIRECT
+  - DOMAIN-WILDCARD,*pcdn*.biliapi.net,REJECT
+  - DOMAIN-SUFFIX,mcdn.bilivideo.cn,REJECT
+  - DOMAIN-SUFFIX,mcdn.bilivideo.com,REJECT
+  - DOMAIN-SUFFIX,szbdyd.com,REJECT
+  - DOMAIN-SUFFIX,mountaintoys.cn,REJECT
   - DOMAIN-KEYWORD,gofile,♻️ 自动选择
   - DOMAIN-SUFFIX,exhentai.org,🇺🇸 美国节点
   - DOMAIN-SUFFIX,asmr.one,🇺🇸 美国节点
